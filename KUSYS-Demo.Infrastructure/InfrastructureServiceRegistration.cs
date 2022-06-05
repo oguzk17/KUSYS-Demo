@@ -1,5 +1,7 @@
 ﻿using KUSYS_Demo.Application.Contracts.Repository.Commons;
+using KUSYS_Demo.Application.Contracts.Repository.Courses;
 using KUSYS_Demo.Infrastructure.Contracts.Repository.Commons;
+using KUSYS_Demo.Infrastructure.Contracts.Repository.Courses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +21,7 @@ namespace KUSYS_Demo.Infrastructure
 
 
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-
+            services.AddScoped<ICourseRepository, CourseRepository>();
         }
     }
 }

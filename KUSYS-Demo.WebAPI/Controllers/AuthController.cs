@@ -5,6 +5,10 @@ using KUSYS_Demo.Application.Settings;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace KUSYS_Demo.WebAPI.Controllers
 {
@@ -32,8 +36,47 @@ namespace KUSYS_Demo.WebAPI.Controllers
             return BadRequest("User not created");
         }
 
-      
+        [HttpPost("SignIn")]
+        public async Task<IActionResult> SignIn(string email, string password)
+        {
+            var query = new GetUserByEmailAndPasswordQuery(email, password);
+            var userModel = await _mediator.Send(query);
+
+            if (userModel != null)
+                return Ok(GenerateJwt(userModel));
+
+            return BadRequest("Email or password invalid");
+        }
+
+        private string GenerateJwt(UserModel userModel)
+        {
+            var claims = new List<Claim>
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, userModel.Id.ToString()),
+                    new Claim(ClaimTypes.Name, userModel.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, userModel.Id.ToString())
+                };
+
+            var roleClaims = userModel.Roles.Select(r => new Claim(ClaimTypes.Role, r));
+            claims.AddRange(roleClaims);
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddDays(Convert.ToDouble(_jwtSettings.ExpirationInDays));
+
+            var token = new JwtSecurityToken(
+                issuer: _jwtSettings.Issuer,
+                audience: _jwtSettings.Issuer,
+                claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }
+
     
 
