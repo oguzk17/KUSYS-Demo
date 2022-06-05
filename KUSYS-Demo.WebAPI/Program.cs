@@ -1,11 +1,17 @@
+using KUSYS_Demo.Application;
 using KUSYS_Demo.Application.Settings;
 using KUSYS_Demo.Domain.Authentication;
 using KUSYS_Demo.Infrastructure;
 using KUSYS_Demo.Infrastructure.Contracts.Repository.Commons;
 using Microsoft.AspNetCore.Identity;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+
+
+
 // Add services to the container.
 #region Settings
 
@@ -24,7 +30,7 @@ builder.Services.AddIdentity<User, Role>(options =>
 
  }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddInfrastructureService();
-
+builder.Services.AddApplicationServices();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
