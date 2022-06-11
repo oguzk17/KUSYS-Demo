@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using KUSYS_Demo.Application.Features.Commands.Authentication.SignUpUser;
 using KUSYS_Demo.Application.Models.Authentication.UserModel;
-using KUSYS_Demo.Application.Models.Course;
+using KUSYS_Demo.Application.Models.Person;
 using KUSYS_Demo.Domain.Authentication;
 using KUSYS_Demo.Domain.Entities;
 using System;
@@ -25,8 +25,8 @@ namespace KUSYS_Demo.Application.Mappings
 
             #region Companies
 
-            CreateMap<Course, CourseModel>().ReverseMap();
-            CreateMap<CourseModel, Course>().ReverseMap();
+            CreateMap<Person, PersonModel>().ReverseMap();
+            CreateMap<PersonModel, Person>().ReverseMap();
 
             #endregion
         }

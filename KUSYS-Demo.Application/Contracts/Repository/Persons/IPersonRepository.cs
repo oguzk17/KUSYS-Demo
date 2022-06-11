@@ -6,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KUSYS_Demo.Application.Contracts.Repository.Courses
+namespace KUSYS_Demo.Application.Contracts.Repository.Persons
 {
-    public interface ICourseRepository:IRepositoryBase<Course>
+    public interface IPersonRepository : IRepositoryBase<Person>
     {
     }
 }
+

@@ -1,4 +1,4 @@
-﻿using KUSYS_Demo.Application.Models.Course;
+﻿using KUSYS_Demo.Application.Models.Person;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KUSYS_Demo.Application.Features.Queries.Courses.GetCourses
 {
-    public  class GetAllCoursesQuery:IRequest<CourseModel>
+    public  class GetAllPersonsQuery:IRequest<PersonModel>
     {
     }
 }

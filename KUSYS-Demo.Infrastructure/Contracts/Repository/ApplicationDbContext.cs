@@ -18,9 +18,7 @@ namespace KUSYS_Demo.Infrastructure.Contracts.Repository.Commons
 
         }
 
-        public DbSet<Student> Students { get; set; }
-
-        public DbSet<Course> Courses { get; set; }
+        public DbSet<Person> Persons { get; set; }
     }
 
 }

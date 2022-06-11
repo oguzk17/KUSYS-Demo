@@ -19,7 +19,7 @@ namespace KUSYS_Demo.WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCourses()
         {
-            return Ok(await _mediator.Send(new GetAllCoursesQuery ()));
+            return Ok(await _mediator.Send(new GetAllPersonsQuery ()));
         }
     }
 }
